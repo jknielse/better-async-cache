@@ -26,7 +26,8 @@ Cache.prototype.get = function (type, key, cb) {
   if (val !== undefined) return setImmediate(() => { cb(null, val) });
   self._getters[type](key, function (err, val) {
     if (err) return cb(err);
-    _.set(self._cache, [type, key], val);
+    if (!self._cache[type]) self._cache[type] = {};
+    self._cache[type][key] = val;
     fs.writeFile(self._path, JSON.stringify(self._cache), function (err) {
       if (err) return cb(err);
       cb(null, val);

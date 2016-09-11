@@ -59,6 +59,26 @@ describe('Simple', function () {
     });
   });
 
+  it('one miss, one hit with persistance', function (done) {
+    var cache = new Cache({
+      path: testCachePath,
+      getters: testGetters
+    });
+
+    cache.get('noop', 'key1', function (err, val) {
+      var newCache = new Cache({
+        path: testCachePath,
+        getters: testGetters
+      });
+      cache.get('noop', 'key1', function (err, val2) {
+        assert.equal('key1', val);
+        assert.equal('key1', val2);
+        assert.equal(cacheMissCount, 1);
+        done();
+      })
+    });
+  });
+
   it('errs get passed on', function (done) {
     var cache = new Cache({
       path: testCachePath,
