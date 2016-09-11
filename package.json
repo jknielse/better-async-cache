@@ -1,6 +1,6 @@
 {
   "name": "better-async-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Very quick and simple non-volatile cache",
   "main": "index.js",
   "scripts": {
